@@ -5,8 +5,10 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/config" // Sesuaikan dengan path modul Anda
 	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/models"
+	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/routes"
 )
 
 func main() {
@@ -23,6 +25,11 @@ func main() {
 	log.Println("Database migrated successfully")
 
 	app := fiber.New()
+
+	app.Use(logger.New())
+
+	// Setup routes
+	routes.SetupAuthRoutes(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World from Fiber!")

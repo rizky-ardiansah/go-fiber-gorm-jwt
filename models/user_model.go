@@ -12,7 +12,7 @@ type User struct {
 	ID        uint           `gorm:"primaryKey" json:"id"`
 	Name      string         `gorm:"not null" json:"name" form:"name"`
 	Email     string         `gorm:"uniqueIndex;not null" json:"email" form:"email"`
-	Password  string         `gorm:"not null" json:"-"` // json:"-" agar tidak terkirim di response
+	Password  string         `gorm:"not null" json:"-"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"` // Untuk soft delete
