@@ -9,5 +9,6 @@ func SetupAuthRoutes(app *fiber.App) {
 	api := app.Group("/api/auth") // Grup rute dengan prefix /api/auth
 
 	api.Post("/register", handlers.RegisterUser)
+	api.Post("/login", handlers.LoginUser)
 
 }

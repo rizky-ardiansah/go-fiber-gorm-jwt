@@ -1,9 +1,13 @@
 package handlers
 
 import (
+	"errors"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/config"
 	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/models"
+	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/utils"
+	"gorm.io/gorm"
 )
 
 // RegisterUserInput defines the expected request body for user registration
@@ -64,4 +68,72 @@ func RegisterUser(c *fiber.Ctx) error {
 		"message": "user registered successfully",
 		"data":    user, // models.User is returned; Password field will be omitted due to json:"-"
 	})
+}
+
+type LoginUserInput struct {
+	Email    string `json:"email" form:"email"`
+	Password string `json:"password" form:"password"`
+}
+
+func LoginUser(c *fiber.Ctx) error {
+	input := new(LoginUserInput)
+
+	if err := c.BodyParser(input); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status":  "error",
+			"message": "Cannot parse JSON",
+			"data":    err.Error(),
+		})
+	}
+
+	if input.Email == "" || input.Password == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"status":  "error",
+			"message": "Email and Password are required",
+		})
+	}
+
+	var user models.User
+	// Cari user berdasarkan email
+	result := config.DB.Where("email = ?", input.Email).First(&user)
+	if result.Error != nil {
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"status":  "error",
+				"message": "Invalid email or password",
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status":  "error",
+			"message": "Database error",
+			"data":    result.Error.Error(),
+		})
+	}
+
+	// Verifikasi password
+	if err := user.CheckPassword(input.Password); err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"status":  "error",
+			"message": "Invalid email or password",
+		})
+	}
+
+	// Generate JWT
+	token, err := utils.GenerateJWT(user.ID, user.Email)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status":  "error",
+			"message": "Could not generate token",
+			"data":    err.Error(),
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"status":  "success",
+		"message": "Login successful",
+		"data": fiber.Map{
+			"token": token,
+		},
+	})
+
 }
