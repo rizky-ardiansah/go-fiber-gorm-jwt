@@ -30,6 +30,7 @@ func main() {
 
 	// Setup routes
 	routes.SetupAuthRoutes(app)
+	routes.SetupUserRoutes(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World from Fiber!")

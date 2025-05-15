@@ -15,7 +15,7 @@ type MyCustomClaims struct {
 }
 
 func GenerateJWT(userID uint, email string) (string, error) {
-	jwtSecret := os.Getenv("JWT_SECRET")
+	jwtSecret := os.Getenv("JWT_SECRET_KEY")
 	jwtExpiresInStr := os.Getenv("JWT_EXPIRES_IN")
 
 	duration, err := time.ParseDuration(jwtExpiresInStr)

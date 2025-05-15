@@ -63,6 +63,28 @@ func RegisterUser(c *fiber.Ctx) error {
 		})
 	}
 
+	// http only cookie
+	token, err := utils.GenerateJWT(user.ID, user.Email)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status":  "error",
+			"message": "failed to generate authentication token",
+			"data":    err.Error(),
+		})
+	}
+
+	// Set cookie
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    token,
+		Path:     "/",
+		MaxAge:   86400, // 1 day in seconds
+		Secure:   true,  // Use true in production with HTTPS
+		HTTPOnly: true,
+		SameSite: "Lax", // Lax for most use cases, Strict for higher security
+	}
+	c.Cookie(&cookie)
+
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"status":  "success",
 		"message": "user registered successfully",
@@ -127,6 +149,18 @@ func LoginUser(c *fiber.Ctx) error {
 			"data":    err.Error(),
 		})
 	}
+
+	// Set cookie
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    token,
+		Path:     "/",
+		MaxAge:   86400, // 1 day in seconds
+		Secure:   true,  // Use true in production with HTTPS
+		HTTPOnly: true,
+		SameSite: "Lax", // Lax for most use cases, Strict for higher security
+	}
+	c.Cookie(&cookie)
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"status":  "success",
