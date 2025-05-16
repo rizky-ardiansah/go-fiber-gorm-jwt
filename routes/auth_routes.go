@@ -10,5 +10,6 @@ func SetupAuthRoutes(app *fiber.App) {
 
 	api.Post("/register", handlers.RegisterUser)
 	api.Post("/login", handlers.LoginUser)
+	api.Post("/logout", handlers.LogoutUser)
 
 }

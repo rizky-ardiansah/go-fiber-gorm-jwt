@@ -169,5 +169,30 @@ func LoginUser(c *fiber.Ctx) error {
 			"token": token,
 		},
 	})
+}
 
+// LogoutUser handles user logout by invalidating the JWT cookie
+func LogoutUser(c *fiber.Ctx) error {
+	// Create an expired cookie to replace the current one
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    "", // Empty value
+		Path:     "/",
+		MaxAge:   -1,   // Delete the cookie
+		Secure:   true, // Use true in production with HTTPS
+		HTTPOnly: true,
+		SameSite: "Lax", // Lax for most use cases, Strict for higher security
+	}
+
+	// Set the expired cookie
+	c.Cookie(&cookie)
+
+	// Catatan: Jika aplikasi front-end juga menyimpan token di localStorage,
+	// token tersebut harus dihapus di sisi klien karena server tidak dapat
+	// menghapus data localStorage secara langsung
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"status":  "success",
+		"message": "Logged out successfully",
+	})
 }
