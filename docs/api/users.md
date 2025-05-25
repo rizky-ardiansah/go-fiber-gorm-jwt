@@ -10,13 +10,6 @@ Digunakan untuk mengambil detail profil pengguna yang saat ini terautentikasi.
 - **Method**: `GET`
 - **Protected**: Ya (Membutuhkan token JWT)
 
-### Headers Permintaan
-
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
-
 ### Respons Sukses
 
 - **Kode**: `200 OK`
