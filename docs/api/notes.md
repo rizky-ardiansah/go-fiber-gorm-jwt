@@ -57,13 +57,6 @@ Digunakan untuk mengambil semua catatan milik pengguna yang terautentikasi.
 - **Method**: `GET`
 - **Protected**: Ya
 
-### Headers Permintaan
-
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
-
 ### Respons Sukses
 
 - **Kode**: `200 OK`
@@ -105,13 +98,6 @@ Digunakan untuk mengambil detail catatan spesifik berdasarkan ID.
 - **Method**: `GET`
 - **Protected**: Ya
 
-### Headers Permintaan
-
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
-
 ### Parameter URL
 
 | Parameter | Deskripsi   | Contoh |
@@ -149,13 +135,6 @@ Digunakan untuk memperbarui catatan yang sudah ada.
 - **URL**: `/api/notes/:id`
 - **Method**: `PUT`
 - **Protected**: Ya
-
-### Headers Permintaan
-
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
 
 ### Parameter URL
 
@@ -203,13 +182,6 @@ Digunakan untuk menghapus catatan.
 - **URL**: `/api/notes/:id`
 - **Method**: `DELETE`
 - **Protected**: Ya
-
-### Headers Permintaan
-
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
 
 ### Parameter URL
 
