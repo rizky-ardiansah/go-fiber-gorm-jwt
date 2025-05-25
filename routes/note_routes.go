@@ -7,7 +7,7 @@ import (
 )
 
 func SetupNoteRoutes(app *fiber.App) {
-	note := app.Group("/notes")
+	note := app.Group("/api/notes")
 
 	note.Use(middlewares.Protected())
 

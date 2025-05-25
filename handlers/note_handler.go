@@ -47,6 +47,11 @@ func GetNotes(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not retrieve notes"})
 	}
 
+	// Check if no notes found
+	if len(notes) == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "No notes found for this user"})
+	}
+
 	return c.JSON(notes)
 }
 

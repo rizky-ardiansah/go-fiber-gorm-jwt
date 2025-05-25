@@ -7,5 +7,5 @@ type Note struct {
 	Title   string `json:"title" gorm:"not null"`
 	Content string `json:"content" gorm:"not null"`
 	UserID  uint   `json:"user_id" gorm:"not null"`
-	User    User   `json:"user" gorm:"foreignKey:UserID"`
+	User    User   `json:"-" gorm:"foreignKey:UserID"`
 }

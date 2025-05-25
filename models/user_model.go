@@ -15,10 +15,9 @@ type User struct {
 	Password  string         `gorm:"not null" json:"-"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"` // Untuk soft delete
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 }
 
-// HashPassword mengenkripsi password pengguna sebelum disimpan
 func (user *User) HashPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	if err != nil {
@@ -28,7 +27,6 @@ func (user *User) HashPassword(password string) error {
 	return nil
 }
 
-// CheckPassword memverifikasi password yang diberikan dengan hash yang tersimpan
 func (user *User) CheckPassword(providedPassword string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(providedPassword))
 	if err != nil {
