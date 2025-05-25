@@ -29,7 +29,6 @@ func RegisterUser(c *fiber.Ctx) error {
 		})
 	}
 
-	// Validate that Name, Email, and Password are provided
 	if input.Name == "" || input.Email == "" || input.Password == "" {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"status":  "error",
@@ -186,10 +185,6 @@ func LogoutUser(c *fiber.Ctx) error {
 
 	// Set the expired cookie
 	c.Cookie(&cookie)
-
-	// Catatan: Jika aplikasi front-end juga menyimpan token di localStorage,
-	// token tersebut harus dihapus di sisi klien karena server tidak dapat
-	// menghapus data localStorage secara langsung
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"status":  "success",

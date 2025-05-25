@@ -5,8 +5,9 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/config" // Sesuaikan dengan path modul Anda
+	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/config"
 	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/models"
 	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/routes"
 )
@@ -18,7 +19,7 @@ func main() {
 	// Koneksi ke database
 	config.ConnectDB()
 
-	err := config.DB.AutoMigrate(&models.User{})
+	err := config.DB.AutoMigrate(&models.User{}, &models.Note{})
 	if err != nil {
 		log.Fatalf("Failed to migrate database: %v", err)
 	}
@@ -26,11 +27,12 @@ func main() {
 
 	app := fiber.New()
 
+	app.Use(cors.New())
 	app.Use(logger.New())
 
-	// Setup routes
 	routes.SetupAuthRoutes(app)
 	routes.SetupUserRoutes(app)
+	routes.SetupNoteRoutes(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World from Fiber!")

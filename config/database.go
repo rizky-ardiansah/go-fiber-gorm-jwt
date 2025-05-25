@@ -34,7 +34,7 @@ func ConnectDB() {
 	)
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info), // Ganti ke logger.Silent di produksi
+		Logger: logger.Default.LogMode(logger.Info),
 	})
 
 	if err != nil {
