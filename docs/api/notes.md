@@ -138,10 +138,9 @@ Digunakan untuk mengambil detail catatan spesifik berdasarkan ID.
 
 ### Headers Permintaan
 
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
+| Header   | Deskripsi                                                            | Contoh    |
+| -------- | -------------------------------------------------------------------- | --------- |
+| `Cookie` | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`) | `jwt=...` |
 
 ### Parameter URL
 
@@ -206,10 +205,9 @@ Digunakan untuk memperbarui catatan yang sudah ada.
 
 ### Headers Permintaan
 
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
+| Header   | Deskripsi                                                            | Contoh    |
+| -------- | -------------------------------------------------------------------- | --------- |
+| `Cookie` | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`) | `jwt=...` |
 
 ### Parameter URL
 
@@ -290,10 +288,9 @@ Digunakan untuk menghapus catatan.
 
 ### Headers Permintaan
 
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
+| Header   | Deskripsi                                                            | Contoh    |
+| -------- | -------------------------------------------------------------------- | --------- |
+| `Cookie` | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`) | `jwt=...` |
 
 ### Parameter URL
 
