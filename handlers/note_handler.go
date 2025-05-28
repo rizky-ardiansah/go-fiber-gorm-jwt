@@ -24,12 +24,15 @@ func CreateNote(c *fiber.Ctx) error {
 	}
 
 	note.UserID = userID
-
 	if err := config.DB.Create(&note).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not create note"})
 	}
 
-	return c.Status(fiber.StatusCreated).JSON(note)
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"status":  "success",
+		"message": "Note created successfully",
+		"data":    note,
+	})
 }
 
 func GetNotes(c *fiber.Ctx) error {
@@ -41,15 +44,9 @@ func GetNotes(c *fiber.Ctx) error {
 	if !ok {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Internal Server Error: User ID is of an invalid type"})
 	}
-
 	var notes []models.Note
 	if err := config.DB.Where("user_id = ?", userID).Find(&notes).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not retrieve notes"})
-	}
-
-	// Check if no notes found
-	if len(notes) == 0 {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "No notes found for this user"})
 	}
 
 	return c.JSON(notes)
@@ -70,13 +67,16 @@ func GetNote(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid note ID"})
 	}
-
 	var note models.Note
 	if err := config.DB.Where("id = ? AND user_id = ?", noteID, userID).First(&note).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Note not found"})
 	}
 
-	return c.JSON(note)
+	return c.JSON(fiber.Map{
+		"status":  "success",
+		"message": "Note retrieved successfully",
+		"data":    note,
+	})
 }
 
 func UpdateNote(c *fiber.Ctx) error {
@@ -107,12 +107,15 @@ func UpdateNote(c *fiber.Ctx) error {
 
 	note.Title = updatedNote.Title
 	note.Content = updatedNote.Content
-
 	if err := config.DB.Save(&note).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not update note"})
 	}
 
-	return c.JSON(note)
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"status":  "success",
+		"message": "Note updated successfully",
+		"data":    note,
+	})
 }
 
 func DeleteNote(c *fiber.Ctx) error {

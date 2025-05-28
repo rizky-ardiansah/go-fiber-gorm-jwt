@@ -5,7 +5,6 @@ import (
 	"github.com/rizky-ardiansah/go-fiber-gorm-jwt/utils"
 )
 
-// Protected adalah middleware untuk melindungi rute yang memerlukan autentikasi
 func Protected() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Ambil token dari HTTP-only cookie

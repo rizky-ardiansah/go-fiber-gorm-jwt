@@ -10,7 +10,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// RegisterUserInput defines the expected request body for user registration
 type RegisterUserInput struct {
 	Name     string `json:"name" form:"name"`
 	Email    string `json:"email" form:"email"`
@@ -36,11 +35,10 @@ func RegisterUser(c *fiber.Ctx) error {
 		})
 	}
 
-	// Create a models.User instance from the input
 	user := &models.User{
 		Name:     input.Name,
 		Email:    input.Email,
-		Password: input.Password, // Password from input is used here
+		Password: input.Password,
 	}
 
 	// Hash password
@@ -87,7 +85,7 @@ func RegisterUser(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"status":  "success",
 		"message": "user registered successfully",
-		"data":    user, // models.User is returned; Password field will be omitted due to json:"-"
+		"data":    user,
 	})
 }
 
@@ -115,7 +113,7 @@ func LoginUser(c *fiber.Ctx) error {
 	}
 
 	var user models.User
-	// Cari user berdasarkan email
+
 	result := config.DB.Where("email = ?", input.Email).First(&user)
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
@@ -177,10 +175,10 @@ func LogoutUser(c *fiber.Ctx) error {
 		Name:     "jwt",
 		Value:    "", // Empty value
 		Path:     "/",
-		MaxAge:   -1,   // Delete the cookie
-		Secure:   true, // Use true in production with HTTPS
+		MaxAge:   -1, // Delete the cookie
+		Secure:   true,
 		HTTPOnly: true,
-		SameSite: "Lax", // Lax for most use cases, Strict for higher security
+		SameSite: "Lax",
 	}
 
 	// Set the expired cookie

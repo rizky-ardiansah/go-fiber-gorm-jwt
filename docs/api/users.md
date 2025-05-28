@@ -1,6 +1,6 @@
 # Dokumentasi API User
 
-Dokumentasi ini menjelaskan endpoint API yang berkaitan dengan pengguna.
+Dokumentasi ini menjelaskan endpoint API yang berkaitan dengan pengguna. Endpoint ini menggunakan HTTP-only cookies untuk autentikasi.
 
 ## Mendapatkan Profil Pengguna Saya
 
@@ -12,27 +12,32 @@ Digunakan untuk mengambil detail profil pengguna yang saat ini terautentikasi.
 
 ### Headers Permintaan
 
-| Header          | Deskripsi                                                                     | Contoh                    |
-| --------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| `Cookie`        | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`)          | `jwt=...`                 |
-| `Authorization` | Opsional: Token JWT untuk autentikasi pengguna jika tidak menggunakan cookie. | `Bearer <your_jwt_token>` |
+| Header   | Deskripsi                                                     | Contoh    |
+| -------- | ------------------------------------------------------------- | --------- |
+| `Cookie` | Cookie yang berisi token JWT (`jwt=your_jwt_token_string`)   | `jwt=...` |
 
 ### Respons Sukses
 
 - **Kode**: `200 OK`
-- **Konten**: Objek JSON yang berisi detail pengguna.
+- **Konten**: Objek JSON yang berisi status, pesan, dan data pengguna.
 
   ```json
   {
-    "id": 1,
-    "name": "Nama Pengguna",
-    "email": "user@example.com",
-    "created_at": "2025-05-25T10:00:00Z",
-    "updated_at": "2025-05-25T10:00:00Z"
+    "status": "success",
+    "message": "Profile fetched successfully",
+    "data": {
+      "ID": 1,
+      "CreatedAt": "2025-05-28T10:00:00Z",
+      "UpdatedAt": "2025-05-28T10:00:00Z",
+      "DeletedAt": null,
+      "name": "Nama Pengguna",
+      "email": "user@example.com",
+      "password": ""
+    }
   }
   ```
 
-  _(Catatan: Struktur data pengguna mungkin berbeda tergantung pada model `User` Anda)_
+  **Catatan**: Field `password` akan selalu dikosongkan demi keamanan.
 
 ### Respons Error
 
@@ -45,4 +50,12 @@ Digunakan untuk mengambil detail profil pengguna yang saat ini terautentikasi.
       "message": "Invalid or expired token"
     }
     ```
-    _(Pesan error spesifik mungkin berbeda tergantung implementasi middleware `Protected`)_
+- **Kode**: `404 Not Found` (jika user tidak ditemukan)
+  ```json
+  {
+    "status": "error",
+    "message": "User not found"
+  }
+  ```
+
+  _(Pesan error spesifik mungkin berbeda tergantung implementasi middleware `Protected`)_

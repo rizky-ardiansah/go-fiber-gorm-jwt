@@ -2,6 +2,8 @@
 
 Simple REST API untuk aplikasi catatan (notes) yang dibangun menggunakan Go, Fiber, GORM, dan JWT authentication.
 
+---
+
 ## Fitur
 
 - ✅ Autentikasi JWT (Register, Login, Logout)
@@ -10,6 +12,8 @@ Simple REST API untuk aplikasi catatan (notes) yang dibangun menggunakan Go, Fib
 - ✅ Relasi database antara User dan Notes
 - ✅ Validasi input dan error handling
 
+---
+
 ## Tech Stack
 
 - **Framework**: [Fiber](https://gofiber.io/)
@@ -17,6 +21,8 @@ Simple REST API untuk aplikasi catatan (notes) yang dibangun menggunakan Go, Fib
 - **Authentication**: JWT (JSON Web Tokens)
 - **Database**: PostgreSQL
 - **Password Hashing**: bcrypt
+
+---
 
 ## Instalasi
 
@@ -49,6 +55,8 @@ go run main.go
 
 Server akan berjalan di `http://localhost:3000` (atau sesuai PORT yang dikonfigurasi).
 
+---
+
 ## Environment Variables
 
 ```env
@@ -61,6 +69,8 @@ JWT_SECRET_KEY=your_jwt_secret_key
 JWT_EXPIRES_IN=24h
 PORT=3000
 ```
+
+---
 
 ## API Endpoints
 
@@ -82,6 +92,8 @@ PORT=3000
 - `PUT /api/notes/:id` - Update catatan (Protected)
 - `DELETE /api/notes/:id` - Hapus catatan (Protected)
 
+---
+
 ## Dokumentasi API
 
 Dokumentasi lengkap API tersedia di folder `docs/api/`:
@@ -90,20 +102,35 @@ Dokumentasi lengkap API tersedia di folder `docs/api/`:
 - [Users API](docs/api/users.md)
 - [Notes API](docs/api/notes.md)
 
+---
+
 ## Struktur Project
 
 ```
 ├── config/          # Konfigurasi database dan environment
 ├── docs/            # Dokumentasi API
-├── handlers/        # Request handlers
-├── middlewares/     # Middleware (auth, cors, dll)
-├── models/          # Database models
-├── routes/          # Route definitions
-├── utils/           # Utility functions (JWT, dll)
+├── handlers/        # Request Handlers
+├── middlewares/     # Middleware (auth)
+├── models/          # Model basis data
+├── routes/          # Definisi rute
+├── utils/           # Util func (JWT, dll)
 └── main.go          # Entry point aplikasi
 ```
 
-## Contoh Usage
+### Arsitektur
+
+Project ini menggunakan **Layered Architecture Pattern** untuk memisahkan tanggung jawab setiap komponen:
+
+### Keuntungan
+
+✅ **Maintainable**: Code terorganisir, mudah debug dan update  
+✅ **Scalable**: Mudah tambah fitur tanpa merusak existing code  
+✅ **Testable**: Setiap layer dapat di-test secara terpisah  
+✅ **Reusable**: Component dapat digunakan di berbagai tempat
+
+---
+
+## Contoh Penggunaan
 
 ### Register User
 
@@ -131,7 +158,7 @@ curl -X POST http://localhost:3000/api/auth/login \
 ### Membuat Catatan (dengan JWT token)
 
 ```bash
-curl -X POST http://localhost:3000/notes \
+curl -X POST http://localhost:3000/api/notes \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your_jwt_token" \
   -d '{
@@ -140,6 +167,8 @@ curl -X POST http://localhost:3000/notes \
   }'
 ```
 
+---
+
 ## Development
 
 Untuk development, Anda bisa menggunakan tools seperti:
@@ -147,6 +176,4 @@ Untuk development, Anda bisa menggunakan tools seperti:
 - **Air** untuk hot reload: `go install github.com/cosmtrek/air@latest`
 - **Postman** atau **Insomnia** untuk testing API
 
-## License
-
-MIT License
+---
