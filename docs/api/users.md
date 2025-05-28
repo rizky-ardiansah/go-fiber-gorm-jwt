@@ -12,9 +12,9 @@ Digunakan untuk mengambil detail profil pengguna yang saat ini terautentikasi.
 
 ### Headers Permintaan
 
-| Header   | Deskripsi                                                     | Contoh    |
-| -------- | ------------------------------------------------------------- | --------- |
-| `Cookie` | Cookie yang berisi token JWT (`jwt=your_jwt_token_string`)   | `jwt=...` |
+| Header   | Deskripsi                                                            | Contoh    |
+| -------- | -------------------------------------------------------------------- | --------- |
+| `Cookie` | Cookie yang berisi token JWT (misalnya, `jwt=your_jwt_token_string`) | `jwt=...` |
 
 ### Respons Sukses
 
@@ -51,6 +51,7 @@ Digunakan untuk mengambil detail profil pengguna yang saat ini terautentikasi.
     }
     ```
 - **Kode**: `404 Not Found` (jika user tidak ditemukan)
+
   ```json
   {
     "status": "error",
