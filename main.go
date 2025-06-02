@@ -24,11 +24,13 @@ func main() {
 		log.Fatalf("Failed to migrate database: %v", err)
 	}
 	log.Println("Database migrated successfully")
-
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://localhost:5173, http://localhost:3000",
+		AllowOriginsFunc: func(origin string) bool {
+			// Allow any origin
+			return true
+		},
 		AllowCredentials: true,
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
