@@ -78,7 +78,7 @@ func RegisterUser(c *fiber.Ctx) error {
 		MaxAge:   86400, // 1 day in seconds
 		Secure:   true,  // Use true in production with HTTPS
 		HTTPOnly: true,
-		SameSite: "Lax", // Lax for most use cases, Strict for higher security
+		SameSite: "None", // Changed from Lax to None to allow cross-site usage
 	}
 	c.Cookie(&cookie)
 
@@ -155,7 +155,7 @@ func LoginUser(c *fiber.Ctx) error {
 		MaxAge:   86400, // 1 day in seconds
 		Secure:   true,  // Use true in production with HTTPS
 		HTTPOnly: true,
-		SameSite: "Lax", // Lax for most use cases, Strict for higher security
+		SameSite: "None", // Changed from Lax to None to allow cross-site usage
 	}
 	c.Cookie(&cookie)
 
@@ -178,7 +178,7 @@ func LogoutUser(c *fiber.Ctx) error {
 		MaxAge:   -1, // Delete the cookie
 		Secure:   true,
 		HTTPOnly: true,
-		SameSite: "Lax",
+		SameSite: "None", // Changed from Lax to None to match login cookie settings
 	}
 
 	// Set the expired cookie
