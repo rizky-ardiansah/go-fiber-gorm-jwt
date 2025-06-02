@@ -25,15 +25,15 @@ func main() {
 	}
 	log.Println("Database migrated successfully")
 	app := fiber.New()
+
 	app.Use(cors.New(cors.Config{
 		AllowOriginsFunc: func(origin string) bool {
-			// Allow any origin for better development and production support
+			// Allow any origin
 			return true
 		},
 		AllowCredentials: true,
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
-		ExposeHeaders:    "Set-Cookie",
 	}))
 
 	app.Use(logger.New())
