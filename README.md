@@ -45,7 +45,7 @@ go mod tidy
 cp .env.example .env
 ```
 
-Edit file `.env` dan sesuaikan dengan konfigurasi database Anda.
+Edit file `.env` dan sesuaikan dengan konfigurasi database.
 
 4. Jalankan aplikasi:
 
@@ -171,7 +171,7 @@ curl -X POST http://localhost:3000/api/notes \
 
 ## Development
 
-Untuk development, Anda bisa menggunakan tools seperti:
+Untuk development, bisa menggunakan tools seperti:
 
 - **Air** untuk hot reload: `go install github.com/cosmtrek/air@latest`
 - **Postman** atau **Insomnia** untuk testing API
